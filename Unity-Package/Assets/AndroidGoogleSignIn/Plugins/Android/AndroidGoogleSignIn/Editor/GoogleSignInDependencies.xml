@@ -1,0 +1,19 @@
+<!-- Copyright (C) 2017 Google Inc. All Rights Reserved.
+
+FirebaseApp iOS and Android Dependencies.
+-->
+
+<dependencies>
+  <iosPods>
+    <iosPod name="Firebase/Core" version="4.2.0" minTargetSdk="7.0">
+    </iosPod>
+  </iosPods>
+  <androidPackages>
+    <androidPackage spec="com.google.android.gms:play-services-auth:11.4.0">
+      <androidSdkPackageIds>
+        <androidSdkPackageId>extra-google-m2repository</androidSdkPackageId>
+      </androidSdkPackageIds>
+    </androidPackage>
+  </androidPackages>
+</dependencies>
+

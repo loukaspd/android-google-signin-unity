@@ -1,4 +1,5 @@
 # Android Google Sign-In Unity Plugin
+https://assetstore.unity.com/packages/tools/integration/android-google-sign-in-103961
 
 ## Overview
 
@@ -20,7 +21,7 @@ or as part of Firebase configuration.
 In order to access ID tokens or server auth codes, you also need to configure
 a web client ID.
 
-## How to build the sample
+## How to Use
 
 
 ### Get a Google Sign-In configuration file
@@ -60,18 +61,12 @@ this yourself.
 
 
 ### Create a new project and import the plugin
-Create a new Unity project and import the `GoogleSignIn-1.0.0.unitypackage` (or the latest version).
-This contains native code, C# Unity code needed to call the Google Sign-In API for both Android.
+Create a new Unity project and import the `AndroidGoogleSignIn.unitypackage` (latest version).
+This contains native code, C# Unity code needed to call the Google Sign-In API for Android.
 
-### Import the sample scene
-Import the `GoogleSignIn-sample.unitypackage` which contains the sample scene and
-scripts.  This package is not needed if you are integrating Google Sign-in into
-your own application.
-
-### Configure the web client id
-1. Open the sample scene in `Assets/SignInSample/MainScene`.
-2. Select the Canvas object in the hierarchy and enter the web client id
-in the __SignInSampleScript__ component.
+### Call Init, Login methods in one of your scripts
+1. call `var googleSignInScript = AndroidGoogleSignIn.Init(this.gameObject);` to initialize the script
+2. call `googleSignInScript.SignIn(WEB_CLIENT_ID, GoogleSuccessCallback, GoogleErrorCallback);` passing your __Web client ID__, a success and an error callback methods
 
 ## Building for Android
 1. Under Build Settings, select Android as the target platform.
@@ -82,22 +77,6 @@ the configuration file.
     __Assets/Play Services Resolver/Android Resolver/Resolve__.  This will add
     the required .aar files to your project in `Assets/Plugins/Android`.
 
-## Building for iOS
-For iOS, follow the instructions for creating a GoogleService-Info.plist file on
-https://developers.google.com/identity/sign-in/ios/start-integrating.
-
-In Unity, after switching to the iOS player, make sure to run the Play Services
-Resolver.  This will add the required frameworks and libraries to the XCode
-project via CocoPods.
-
-After generating the XCode project from Unity, download the GoogleService-Info.plist file
-from the Google Developers website and add it to your XCode project.
-
-## Using the Games Profile to sign in on Android
-To use the Play Games Services Gamer profile when signing in, you need to edit the
-dependencies in `Assets/GoogleSignIn/Editor/GoogleSignInDependencies.xml`.
-
-Uncomment the play-services-games dependency and re-run the resolution.
 
 
 ## Using this plugin with Firebase Auth
@@ -143,12 +122,6 @@ The steps are:
       }
     });
 ```
-
-
-## Building the Plugin
-To build the plugin run `./gradlew build_all`. This builds the support aar
-library, and packages the plugin into a .unitypackage file.  It also packages the
-sample scene and script in a separate package.
 
 
 ## Questions? Problems?
