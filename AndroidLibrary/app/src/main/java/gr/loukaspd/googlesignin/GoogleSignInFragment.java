@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,6 +27,7 @@ public class GoogleSignInFragment extends Fragment
     //region Public Api
 
     public static String WebClientId;
+    public static String ServerClientId;
     public static String UnityGameObjectName;
 
     public static void SignIn(Activity unityActivity, String webClientId)
@@ -37,8 +37,15 @@ public class GoogleSignInFragment extends Fragment
         SignIn(unityActivity);
     }
 
+    public static void SignInWithServerClientId(Activity unityActivity, String serverClientId) {
+        ServerClientId = serverClientId;
+        SignIn(unityActivity);
+    }
+
+
     public static void SignIn(Activity unityActivity) {
-        if (WebClientId == null || WebClientId.length() == 0) {
+        if ((WebClientId == null || WebClientId.length() == 0)
+            &&(ServerClientId == null || ServerClientId.length() == 0)){
             return;
         }
 
@@ -61,6 +68,9 @@ public class GoogleSignInFragment extends Fragment
                 .requestProfile();
         if (WebClientId != null && WebClientId.length() > 0) {
             builder.requestIdToken(WebClientId);
+        }
+        if (ServerClientId != null && ServerClientId.length() > 0) {
+            builder.requestServerAuthCode(ServerClientId);
         }
 
         GoogleSignInOptions gso = builder.build();
@@ -140,6 +150,7 @@ public class GoogleSignInFragment extends Fragment
         result += "\"DisplayName\": \"" + account.getDisplayName() + "\", ";
         result += "\"Email\": \"" + account.getEmail() + "\", ";
         result += "\"FamilyName\": \"" + account.getFamilyName() + "\", ";
+        result += "\"ServerAuthCode\": \"" + account.getServerAuthCode() + "\", ";
         if (account.getPhotoUrl() != null) result += "\"PhotoUrl\": \"" +  account.getPhotoUrl().toString() + "\" ";
 
         result += "}";

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AndroidGoogleSignIn : MonoBehaviour 
+public class AndroidGoogleSignIn : MonoBehaviour
 {
 
 	#region Initialization
@@ -20,18 +20,15 @@ public class AndroidGoogleSignIn : MonoBehaviour
     private Action<AndroidGoogleSignInAccount> _successCallback;
     private Action<string> _errorCallback;
 
+    public void SignInWithServerClientId(string serverClientId, Action<AndroidGoogleSignInAccount> successCallback,
+        Action<string> errorCallback)
+    {
+        InitAndroidFragment("SignInWithServerClientId", serverClientId, successCallback, errorCallback);
+    }
+
     public void SignIn(string webClientId, Action<AndroidGoogleSignInAccount> successCallback, Action<string> errorCallback)
     {
-        _successCallback = successCallback;
-        _errorCallback = errorCallback;
-        using (var unityPlayerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-        using (var unityActivity = unityPlayerClass.GetStatic<AndroidJavaObject>("currentActivity"))
-        using (var signInFragmentClass = new AndroidJavaClass("gr.loukaspd.googlesignin.GoogleSignInFragment"))
-        {
-            signInFragmentClass.SetStatic("UnityGameObjectName", this.gameObject.name);
-
-            signInFragmentClass.CallStatic("SignIn", unityActivity, webClientId);
-        }
+        InitAndroidFragment("SignIn", webClientId, successCallback, errorCallback);
     }
 
 
@@ -58,4 +55,19 @@ public class AndroidGoogleSignIn : MonoBehaviour
 		_successCallback = null;
 		_errorCallback = null;
 	}
+
+    private void InitAndroidFragment(string methodName, string param,
+        Action<AndroidGoogleSignInAccount> successCallback, Action<string> errorCallback)
+    {
+        _successCallback = successCallback;
+        _errorCallback = errorCallback;
+        using (var unityPlayerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        using (var unityActivity = unityPlayerClass.GetStatic<AndroidJavaObject>("currentActivity"))
+        using (var signInFragmentClass = new AndroidJavaClass("gr.loukaspd.googlesignin.GoogleSignInFragment"))
+        {
+            signInFragmentClass.SetStatic("UnityGameObjectName", this.gameObject.name);
+
+            signInFragmentClass.CallStatic(methodName, unityActivity, param);
+        }
+    }
 }
