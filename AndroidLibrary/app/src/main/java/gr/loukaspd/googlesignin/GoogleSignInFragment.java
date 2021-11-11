@@ -63,7 +63,7 @@ public class GoogleSignInFragment extends Fragment
             builder.requestIdToken(WebClientId);
         }
 
-        GoogleSignInOptions gso = builder.build();
+        GoogleSignInOptions gso = builder.requestEmail().requestServerAuthCode(WebClientId,false).build();
 
         _gApiClient = new GoogleApiClient.Builder(getActivity())
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
