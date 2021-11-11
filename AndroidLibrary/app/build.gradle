@@ -19,7 +19,7 @@ android {
     }
 
     dependencies {
-        compile 'com.google.android.gms:play-services-auth:11.4.0'
+        api 'com.google.android.gms:play-services-auth:11.4.0'
     }
 }
 
@@ -35,15 +35,17 @@ dependencies {
 
 //----- Tasks to export library as .jar (GoogleSignIn.jar)----- //
 //you have to include the classes.jar from unity in our libs folder
-task exportJar(type: Copy) {
-    from('build/intermediates/bundles/release/classes.jar')
-    include('classes.jar')
+
+task deleteObjectJar(type:Delete){
+    delete'release/AndroidGoogleSignIn.jar'
+}
+
+task exportJar(type:Copy){
+    //aar_main_jar/release 에서 classes.jar 파일을 가져온다.
+    from('build/intermediates/aar_main_jar/release/')
     into('release/')
-    rename('classes.jar', 'AndroidGoogleSignIn.jar')
+    include('classes.jar')
+    rename('classes.jar','AndroidGoogleSignIn.jar')
 }
 
-task deleteOldJar(type: Delete) {
-    delete 'release/AndroidGoogleSignIn.jar'
-}
-
-exportJar.dependsOn(deleteOldJar, build)
+exportJar.dependsOn(deleteObjectJar,build)
