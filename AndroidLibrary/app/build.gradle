@@ -2,9 +2,9 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    buildToolsVersion "29.0.2"
     defaultConfig {
-        //applicationId "gr.loukaspd.googlesignin"
+        //applicationId "gr.loukaspd.googlesignin"9
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1

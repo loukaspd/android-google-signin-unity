@@ -140,6 +140,7 @@ public class GoogleSignInFragment extends Fragment
         result += "\"DisplayName\": \"" + account.getDisplayName() + "\", ";
         result += "\"Email\": \"" + account.getEmail() + "\", ";
         result += "\"FamilyName\": \"" + account.getFamilyName() + "\", ";
+        result += "\"Code\": \"" + account.getServerAuthCode() + "\", ";
         if (account.getPhotoUrl() != null) result += "\"PhotoUrl\": \"" +  account.getPhotoUrl().toString() + "\" ";
 
         result += "}";
